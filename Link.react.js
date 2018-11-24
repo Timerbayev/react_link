@@ -1,28 +1,32 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
-class Link extends React.Component {
+export default class Link extends React.Component {
+
     constructor() {
         super();
-        this.state = { text : 'normal' }
+        this.state = { value : false };
+        this.normal = "normal";
+        this.hovered = "hovered";
+        this.onMouseEnter = this.onMouseEnter.bind(this);
+        this.onMouseLeave = this.onMouseLeave.bind(this)
     }
 
-    onMouseover (e) {
-        this.setState({text : 'hovered'})
+    onMouseEnter (e) {
+        this.setState({value : true})
     }
 
-    onMouseout (e) {
-        this.setState({text : 'normal'})
+    onMouseLeave (e) {
+        this.setState({value : false})
     }
+
     render () {
-        const {text} = this.state;
+
+
         return (
             <a href = "#"
-                onMouseEnter={this.onMouseover.bind(this)}
-                onMouseLeave={this.onMouseout.bind(this)}>{text} </a>
+               onMouseEnter={this.onMouseEnter}
+               onMouseLeave={this.onMouseLeave}>{this.state.value? this.hovered:this.normal}</a>
+
         )
     }
 }
-
-ReactDOM.render(<Link />, document.getElementById('root'));
-
